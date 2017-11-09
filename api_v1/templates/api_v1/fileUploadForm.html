@@ -1,0 +1,48 @@
+
+{% block content %}
+<style>
+#status tr.OK td { 
+  background-color: white;
+  color: green; 
+  }
+  
+#status tr.Failed td { 
+  background-color: white;
+  color: red; 
+  }
+  
+  
+</style>
+
+<form enctype="multipart/form-data" action="#" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+<h4>Instructions</h4>
+<p>The first row of data will be treated as columns and must coincide exactly with the required field names.
+Always use lower case, and ensure there are no trailing spaces. </p>
+
+
+
+
+
+{% if success %}
+<table id="status">
+<tr class="OK"><td>{{lines}}</td><td>Lines loaded onto database</td></tr>
+</table>
+
+
+{% elif failure %}
+
+<table id="status">
+<tr><th>Element</th><th>Status</th></tr>
+<tr><td>Status code</td><td>{{status_code}}</tr>
+<tr class="Failed"><td>Error messages</td><td>{{error_message}}</tr>
+</table>
+{% endif %}
+
+
+
+
+{% endblock %}
