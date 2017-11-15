@@ -46,12 +46,7 @@ def getElasticConnection():
                            )
                            
     return es  
-'''
-use_ssl=config['use_ssl'],
-                           ca_certs=config['path_to_ca_cert'],
-                           client_cert=config['path_to_client_cert'],
-                           client_key=config['path_to_key'])
-'''
+
 
 
     

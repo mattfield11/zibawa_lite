@@ -178,7 +178,8 @@ def handle_uploaded_file(f,request,upload_ref_ID):
         s = json.dumps(dataWrapper)
        
 
-        url = 'http://localhost:8000/api_v1/bulk'
+        url = settings.APIUSER['protocol']+settings.APIUSER['host']+':'+settings.APIUSER['port']+'/api_v1/bulk'
+        logger.info("calling url:%s",url)
         headers = {'Content-Type': 'application/json'}
         
 
