@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch,helpers
 import json
 import logging
 logger = logging.getLogger(__name__)
-
+import certifi
 
 
 
@@ -37,20 +37,27 @@ def date_handler(obj):
 
 def getElasticConnection():
     config=settings.ELASTICSEARCH
+    logger.info('connecting to ES on %s:%s', config['host'],config['port'])
     es = Elasticsearch([config['host']],
                            http_auth=(config['user'], config['password']),
                            port=config['port'],
                            use_ssl=config['use_ssl'],
+                           ca_certs=certifi.where()
+                           )
+                           
+    return es  
+'''
+use_ssl=config['use_ssl'],
                            ca_certs=config['path_to_ca_cert'],
                            client_cert=config['path_to_client_cert'],
                            client_key=config['path_to_key'])
-    return es  
+'''
 
 
     
 def sendToElastic(indexName,jsonData):    
 #careful with document types! currently static as json mapping must also use json!        
-   
+    
     es = getElasticConnection()
     result = es.index(index=indexName, doc_type="zibawa", body=jsonData)
     return result
