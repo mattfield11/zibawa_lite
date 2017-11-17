@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.admin.views.decorators import staff_member_required
+
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, permission_classes
@@ -11,15 +11,15 @@ from django.conf import settings
 from .models import Data_ingest_line
 from .serializers import Data_ingest_lineSerializer, Data_ingest_bulkSerializer
 
-from django.http import Http404
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 from .elastic_functions import sendToElasticBulk
 
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+
+
 from .forms import UploadFileForm
 
 import csv
@@ -111,7 +111,7 @@ class Data_ingest_bulk(APIView):
 
 
 
-
+@staff_member_required
 def upload_file(request):
     if request.method == 'POST':
         logger.info("request is post")
