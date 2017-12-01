@@ -3,6 +3,7 @@ from .models import Data_ingest_line
 from django.utils import timezone
 
 
+
 class Data_ingest_lineSerializer(serializers.Serializer):
     channel_id = serializers.CharField(max_length=50,default="none")
     #value  = serializers.FloatField()
@@ -13,10 +14,12 @@ class Data_ingest_lineSerializer(serializers.Serializer):
     weight = serializers.FloatField()
     height = serializers.FloatField()
     bmi = serializers.FloatField()
-    std = serializers.BooleanField()
-    smoker = serializers.BooleanField()
-    exercise = serializers.BooleanField()
-    conceive = serializers.BooleanField()
+    std = serializers.IntegerField(max_value=1, min_value=0)
+    smoker = serializers.IntegerField(max_value=1, min_value=0)
+    exercise = serializers.IntegerField(max_value=1, min_value=0)
+    
+    conceive = serializers.IntegerField(max_value=1, min_value=0)
+    
    
     
 
